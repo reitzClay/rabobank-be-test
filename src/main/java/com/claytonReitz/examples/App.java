@@ -29,6 +29,7 @@ public class App
         System.out.println(deserializedData);
         System.out.println(deserializedData.record.getBytes());
         System.out.println(deserializedData.record.getBytes().toString());
+        System.out.println(deserializedData.record.getBytes().toString());
     }
 
 }
