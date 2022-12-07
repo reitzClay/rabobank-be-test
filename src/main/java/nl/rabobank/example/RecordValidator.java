@@ -22,12 +22,14 @@ public class RecordValidator
         //TODO Read value from xml
         final File initialFile = new File("/Users/claytonreitz/Development/rabobank-be-test/src/test/resources/records.xml");
         final InputStream targetStream = new FileInputStream(initialFile);
-        return null;
+        return (List<Record>) initialFile;
     };
 
     private List<Record> loadRecordsFromCsv(String path, String csv) throws IOException {
         //TODO read from csv
-        return null;
+        final File initialFile = new File("/Users/claytonreitz/Development/rabobank-be-test/src/test/resources/records.csv");
+        final InputStream targetStream = new FileInputStream(initialFile);
+        return (List<Record>) initialFile;
     };
 
 }
