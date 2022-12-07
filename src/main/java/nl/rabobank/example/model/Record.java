@@ -1,18 +1,16 @@
-package com.claytonReitz.examples;
+package nl.rabobank.example.model;
 
 import java.util.Date;
+import java.util.Objects;
 
-public class Records {
-
-    public String getRecord() {
-        return record;
-    }
-
-    public void setRecord(String record) {
-        this.record = record;
-    }
-
-    public String record;
+public class Record {
+    private int reference;
+    private String accountNumber;
+    private String description;
+    private double startBalance;
+    private double mutation;
+    private double endBalance;
+    private Date date;
 
     public int getReference() {
         return reference;
@@ -22,8 +20,6 @@ public class Records {
         this.reference = reference;
     }
 
-    private int reference;
-
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -31,8 +27,6 @@ public class Records {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
-
-    private String accountNumber;
 
     public String getDescription() {
         return description;
@@ -42,8 +36,6 @@ public class Records {
         this.description = description;
     }
 
-    private String description;
-
     public double getStartBalance() {
         return startBalance;
     }
@@ -51,8 +43,6 @@ public class Records {
     public void setStartBalance(double startBalance) {
         this.startBalance = startBalance;
     }
-
-    private double startBalance;
 
     public double getMutation() {
         return mutation;
@@ -62,8 +52,6 @@ public class Records {
         this.mutation = mutation;
     }
 
-    private double mutation;
-
     public double getEndBalance() {
         return endBalance;
     }
@@ -71,8 +59,6 @@ public class Records {
     public void setEndBalance(double endBalance) {
         this.endBalance = endBalance;
     }
-
-    private double endBalance;
 
     public Date getDate() {
         return date;
@@ -82,5 +68,16 @@ public class Records {
         this.date = date;
     }
 
-    private Date date;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Record record = (Record) o;
+        return reference == record.reference && Double.compare(record.startBalance, startBalance) == 0 && Double.compare(record.mutation, mutation) == 0 && Double.compare(record.endBalance, endBalance) == 0 && Objects.equals(accountNumber, record.accountNumber) && Objects.equals(description, record.description) && Objects.equals(date, record.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(reference, accountNumber, description, startBalance, mutation, endBalance, date);
+    }
 }
