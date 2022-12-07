@@ -12,4 +12,5 @@ public class RecordValidatorTest
     public void testValidate() {
 
     }
+
 }
