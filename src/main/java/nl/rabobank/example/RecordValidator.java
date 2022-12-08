@@ -1,12 +1,9 @@
 package nl.rabobank.example;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
+import javax.xml.parsers.*;
+import java.io.*;
 
 /**
  * Hello world!
@@ -14,22 +11,48 @@ import java.util.List;
  */
 public class RecordValidator
 {
-    public void validate( String path, String fileType ) throws IOException {
+    public void validate( ) throws IOException, ParserConfigurationException, SAXException {
+        loadRecordsFromXml();
+        loadRecordsFromCsv();
+    }
+
+    private void loadRecordsFromXml() throws IOException,ParserConfigurationException, SAXException {
+        //Read value from xml
+        System.out.println("Hello Xml");
+        DocumentBuilderFactory dBfactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = dBfactory.newDocumentBuilder();
+        //Fetch Xml file
+        Document document = builder.parse(new File("src/test/resources/records.xml"));
+        document.getDocumentElement().normalize();
+        //Get the root node
+        Element root = document.getDocumentElement();
+        System.out.println(root.getNodeName());
+        //Get all students
+        NodeList nList = document.getElementsByTagName("record");
+        System.out.println(".................................");
+
+        for ( int i = 0; i < nList.getLength(); ++i)
+        {
+            Node node = nList.item(i);
+            System.out.println(); //Just a line seperator
+            if (node.getNodeType() == Node.ELEMENT_NODE)
+            {
+                //Print each client record detail
+                Element element = (Element) node;
+                System.out.println("record reference: " + element.getAttribute("reference"));
+                System.out.println("accountNumber :" + element.getElementsByTagName("accountNumber").item(0).getTextContent());
+                System.out.println("description : " + element.getElementsByTagName("description").item(0).getTextContent());
+                System.out.println("startBalance : " + element.getElementsByTagName("startBalance").item(0).getTextContent());
+                System.out.println("mutation : " + element.getElementsByTagName("mutation").item(0).getTextContent());
+                System.out.println("endBalance : " + element.getElementsByTagName("endBalance").item(0).getTextContent());
+                System.out.println("date : " + element.getElementsByTagName("date").item(0).getTextContent());
+            }
+        }
 
     }
 
-    private List<Record> loadRecordsFromXml(String path, String xml) throws IOException {
-        //TODO Read value from xml
-        final File initialFile = new File("/Users/claytonreitz/Development/rabobank-be-test/src/test/resources/records.xml");
-        final InputStream targetStream = new FileInputStream(initialFile);
-        return (List<Record>) initialFile;
-    };
-
-    private List<Record> loadRecordsFromCsv(String path, String csv) throws IOException {
+    private void  loadRecordsFromCsv(){
         //TODO read from csv
-        final File initialFile = new File("/Users/claytonreitz/Development/rabobank-be-test/src/test/resources/records.csv");
-        final InputStream targetStream = new FileInputStream(initialFile);
-        return (List<Record>) initialFile;
-    };
+    }
 
 }

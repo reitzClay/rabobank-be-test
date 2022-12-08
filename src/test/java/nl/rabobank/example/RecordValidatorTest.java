@@ -2,7 +2,8 @@ package nl.rabobank.example;
 
 
 import org.junit.jupiter.api.Test;
-
+import org.xml.sax.SAXException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 /**
@@ -11,13 +12,9 @@ import java.io.IOException;
 public class RecordValidatorTest
 {
     @Test
-    public void testValidate() throws IOException {
+    public void testValidate() throws IOException, ParserConfigurationException, SAXException {
         var validator = new RecordValidator();
-        validator.validate("/Users/claytonreitz/Development/rabobank-be-test/src/test/resources/records.xml","xml");
-        return;
-    }
-    public void loadRecordsFromXml(String path, String file){
-        return;
+        validator.validate();
     }
 
 }
