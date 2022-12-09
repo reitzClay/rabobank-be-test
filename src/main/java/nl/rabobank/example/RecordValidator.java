@@ -11,57 +11,20 @@ import java.util.List;
  * Hello world!
  */
 public class RecordValidator {
-    public void validate() throws IOException {
-        loadRecordsFromXml();
-        loadRecordsFromCsv();
+    public void validate(String path) throws IOException {
+        var records = loadRecordsFromXml("src/test/resources/records.xml");
+        //TODO filter records
     }
 
-    private void loadRecordsFromXml() throws IOException {
+    private List<Record> loadRecordsFromXml(String path) throws IOException {
+        try ( var stream = new FileInputStream(path)){
+            return new XmlMapper().readValue(stream, new TypeReference<List<Record>>() {
 
-        try ( var stream = new FileInputStream(new File("src/test/resources/records.xml")))
-        {
-           List<Record> records = new XmlMapper().readValue(stream, new TypeReference<List<Record>>() {
-               @Override
-               public Type getType() {
-                   return super.getType();
-               }
-
-               @Override
-               public int compareTo(TypeReference<List<Record>> o) {
-                   return super.compareTo(o);
-               }
-
-               @Override
-               public int hashCode() {
-                   return super.hashCode();
-               }
-
-               @Override
-               public boolean equals(Object obj) {
-                   return super.equals(obj);
-               }
-
-               @Override
-               protected Object clone() throws CloneNotSupportedException {
-                   return super.clone();
-               }
-
-               @Override
-               public String toString() {
-                   return super.toString();
-               }
-
-               @Override
-               protected void finalize() throws Throwable {
-                   super.finalize();
-               }
-           });
+            });
         }
     }
 
-    private void loadRecordsFromCsv() throws IOException {
-        //TODO read from csv
+    private void loadRecordsFromCsv(String path) throws IOException{
 
     }
-
 }
