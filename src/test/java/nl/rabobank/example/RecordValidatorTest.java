@@ -1,6 +1,8 @@
 package nl.rabobank.example;
 
 
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import nl.rabobank.example.model.Record;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,5 +18,4 @@ public class RecordValidatorTest
         var validator = new RecordValidator();
         validator.validate();
     }
-
 }
