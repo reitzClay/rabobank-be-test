@@ -1,12 +1,11 @@
 package nl.rabobank.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import nl.rabobank.example.model.Record;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-import javax.xml.parsers.*;
 import java.io.*;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Hello world!
@@ -19,15 +18,45 @@ public class RecordValidator {
 
     private void loadRecordsFromXml() throws IOException {
 
-        XmlMapper mapper = new XmlMapper();
-        File file = new File("src/test/resources/records.xml");
-        Record value = mapper.readValue(file, Record.class);
-        System.out.println(value.getRecord());
-        System.out.println(value.getAccountNumber());
-        System.out.println(value.getDate());
-        System.out.println(value.getDescription());
-        System.out.println(value.getMutation());
-        System.out.println(value);
+        try ( var stream = new FileInputStream(new File("src/test/resources/records.xml")))
+        {
+           List<Record> records = new XmlMapper().readValue(stream, new TypeReference<List<Record>>() {
+               @Override
+               public Type getType() {
+                   return super.getType();
+               }
+
+               @Override
+               public int compareTo(TypeReference<List<Record>> o) {
+                   return super.compareTo(o);
+               }
+
+               @Override
+               public int hashCode() {
+                   return super.hashCode();
+               }
+
+               @Override
+               public boolean equals(Object obj) {
+                   return super.equals(obj);
+               }
+
+               @Override
+               protected Object clone() throws CloneNotSupportedException {
+                   return super.clone();
+               }
+
+               @Override
+               public String toString() {
+                   return super.toString();
+               }
+
+               @Override
+               protected void finalize() throws Throwable {
+                   super.finalize();
+               }
+           });
+        }
     }
 
     private void loadRecordsFromCsv() throws IOException {

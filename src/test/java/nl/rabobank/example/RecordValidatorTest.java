@@ -17,5 +17,6 @@ public class RecordValidatorTest
     public void testValidate() throws IOException, ParserConfigurationException, SAXException {
         var validator = new RecordValidator();
         validator.validate();
+        System.out.println("debugging");
     }
 }
