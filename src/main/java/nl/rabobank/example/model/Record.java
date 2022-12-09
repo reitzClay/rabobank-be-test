@@ -1,6 +1,5 @@
 package nl.rabobank.example.model;
 
-
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import java.util.Date;
 import java.util.Objects;

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import nl.rabobank.example.model.Record;
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.List;
 
 /**
@@ -12,8 +11,10 @@ import java.util.List;
  */
 public class RecordValidator {
     public void validate(String path) throws IOException {
-        var records = loadRecordsFromXml("src/test/resources/records.xml");
+
+        var records = loadRecordsFromXml(path);
         //TODO filter records
+
     }
 
     private List<Record> loadRecordsFromXml(String path) throws IOException {
