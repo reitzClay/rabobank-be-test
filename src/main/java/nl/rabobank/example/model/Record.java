@@ -1,12 +1,16 @@
 package nl.rabobank.example.model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+
+import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
 
 @JacksonXmlRootElement
+@JsonPropertyOrder ( { "reference", "accountNumber", "description", "startBalance", "mutation", "endBalance", "transactionDate" } )
 public class Record {
-    private int record;
+
     private int reference;
     private String accountNumber;
     private String description;
@@ -14,14 +18,6 @@ public class Record {
     private double mutation;
     private double endBalance;
     private Date date;
-
-    public int getRecord() {
-        return record;
-    }
-
-    public void setRecord(int record) {
-        this.record = record;
-    }
 
     public int getReference() {
         return reference;
@@ -75,20 +71,24 @@ public class Record {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate( Date date ) {
         this.date = date;
     }
 
+    public Boolean isValid() {
+        return ( endBalance > 0 && startBalance > 0 ) && ( date.before( Date.from( Instant.now() ) ) );
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Record record1 = (Record) o;
-        return record == record1.record && reference == record1.reference && Double.compare(record1.startBalance, startBalance) == 0 && Double.compare(record1.mutation, mutation) == 0 && Double.compare(record1.endBalance, endBalance) == 0 && Objects.equals(accountNumber, record1.accountNumber) && Objects.equals(description, record1.description) && Objects.equals(date, record1.date);
+    public boolean equals( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass() != o.getClass() ) return false;
+        Record record = ( Record ) o;
+        return reference == record.reference && Double.compare( record.startBalance, startBalance ) == 0 && Double.compare( record.mutation, mutation ) == 0 && Double.compare( record.endBalance, endBalance ) == 0 && Objects.equals( accountNumber, record.accountNumber ) && Objects.equals( description, record.description ) && Objects.equals( date, record.date );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(record, reference, accountNumber, description, startBalance, mutation, endBalance, date);
+        return Objects.hash( reference, accountNumber, description, startBalance, mutation, endBalance, date );
     }
 }
