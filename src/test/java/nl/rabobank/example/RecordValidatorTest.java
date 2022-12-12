@@ -1,6 +1,7 @@
 package nl.rabobank.example;
 
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -23,13 +24,13 @@ public class RecordValidatorTest
         public void testValidateXml() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.xml", RecordValidator.Type.XML );
         result.stream().forEach( r -> logger.info( () -> String.format("ref: %s, desc: '%s'", r.getReference(), r.getDescription() ) ) );
-
+        Assertions.assertEquals(1, result.size());
     }
 
     @Test
     public void testValidateCsv() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.csv", RecordValidator.Type.CSV );
         result.stream().forEach( r -> logger.info( () -> String.format("ref: %s, desc: '%s'", r.getReference(), r.getDescription() ) ) );
-        return;
+        Assertions.assertEquals(1, result.size());
     }
 }

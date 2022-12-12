@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import nl.rabobank.example.model.Record;
+import org.junit.jupiter.api.Assertions;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
