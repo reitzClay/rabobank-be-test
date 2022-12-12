@@ -1,5 +1,6 @@
 package nl.rabobank.example;
 
+
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -7,19 +8,28 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import java.io.IOException;
 
 /**
- * Unit test for simple App.
+ * Unit test for ABC Bank Customer Statement Processor
  */
 public class RecordValidatorTest
 {
-    private static final Logger logger = LoggerFactory.getLogger( RecordValidatorTest.class );
+    private static final Logger logger = LoggerFactory.getLogger(RecordValidatorTest.class);
+
+    public static Logger getLogger() {
+
+        return logger;
+    }
+
     @Test
-    public void testValidateXml() throws IOException {
+        public void testValidateXml() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.xml", RecordValidator.Type.XML );
 
-        System.out.println( "write assertions" );
+        //System.out.println( "Test Assertions..." );
         // TODO: Test Assertions...
-        //Check that a condition is true
         assert result != null;
+
+        System.out.println("----------failed XML records-----------");
+        result.stream().map( record -> record.getReference()+ " Desc. : " + record.getDescription())
+                .forEach(s -> System.out.println(" Ref# : " + s + " "));
         return;
         //Generate report in test
         //Use Logger with nice table
@@ -29,12 +39,17 @@ public class RecordValidatorTest
     public void testValidateCsv() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.csv", RecordValidator.Type.CSV );
 
-        System.out.println( "write assertions" );
         // TODO: Test Assertions...
-        assert result != null;
-        return;
+        //System.out.println( "write assertions" );
         //Generate report in test
         //Use Logger with nice table
-    }
+        assert result != null;
 
+
+        System.out.println("----------failed CSV records-----------");
+        result.stream().map( record -> record.getReference()+ "Desc. : " + record.getDescription())
+                .forEach(s -> System.out.println("Ref# : " + s + " "));
+        return;
+
+    }
 }
