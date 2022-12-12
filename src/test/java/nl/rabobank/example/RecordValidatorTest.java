@@ -22,34 +22,14 @@ public class RecordValidatorTest
     @Test
         public void testValidateXml() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.xml", RecordValidator.Type.XML );
+        result.stream().forEach( r -> logger.info( () -> String.format("ref: %s, desc: '%s'", r.getReference(), r.getDescription() ) ) );
 
-        //System.out.println( "Test Assertions..." );
-        // TODO: Test Assertions...
-        assert result != null;
-
-        System.out.println("----------failed XML records-----------");
-        result.stream().map( record -> record.getReference()+ " Desc. : " + record.getDescription())
-                .forEach(s -> System.out.println(" Ref# : " + s + " "));
-        return;
-        //Generate report in test
-        //Use Logger with nice table
     }
 
     @Test
     public void testValidateCsv() throws IOException {
         var result = new RecordValidator().validate("src/test/resources/records.csv", RecordValidator.Type.CSV );
-
-        // TODO: Test Assertions...
-        //System.out.println( "write assertions" );
-        //Generate report in test
-        //Use Logger with nice table
-        assert result != null;
-
-
-        System.out.println("----------failed CSV records-----------");
-        result.stream().map( record -> record.getReference()+ "Desc. : " + record.getDescription())
-                .forEach(s -> System.out.println("Ref# : " + s + " "));
+        result.stream().forEach( r -> logger.info( () -> String.format("ref: %s, desc: '%s'", r.getReference(), r.getDescription() ) ) );
         return;
-
     }
 }
